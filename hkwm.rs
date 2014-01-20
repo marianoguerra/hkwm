@@ -90,6 +90,26 @@ fn main() {
             println!("select input set!");
 
             unsafe {
+                let mut wa = xlib::XSetWindowAttributes {
+                    background_pixmap: 0,
+                    background_pixel: 0,
+                    border_pixmap: 0,
+                    border_pixel: 0,
+                    bit_gravity: 0,
+                    win_gravity: 0,
+                    backing_store: 0,
+                    backing_planes: 0,
+                    backing_pixel: 0,
+                    save_under: 0,
+                    event_mask: 0,
+                    do_not_propagate_mask: 0,
+                    override_redirect: 0,
+                    colormap: 0,
+                    cursor: 0,
+                };
+                wa.cursor = xlib::XCreateFontCursor(display, 68 /*XC_left_ptr*/);
+                xlib::XChangeWindowAttributes(display, root,
+                    (1<<14) /*CWCursor*/, &mut wa);
                 xlib::XGrabKey(display, 53, Mod4Mask, root, 1, GrabModeAsync,
                     GrabModeAsync);
                 xlib::XGrabKey(display, 45, Mod4Mask, root, 1, GrabModeAsync,
