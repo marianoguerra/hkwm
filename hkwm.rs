@@ -5,7 +5,7 @@ use xlib::xlib::{Display, XSelectInput, XOpenDisplay, Window, XDefaultRootWindow
 use xlib::xlib::{XNextEvent, XEvent};
 use std::libc::{size_t, malloc};
 
-fn getDisplay() -> Option<*Display> {
+fn getDisplay() -> Option<*mut Display> {
     unsafe {
         let null = ptr::null();
         let display = XOpenDisplay(null);
@@ -19,13 +19,13 @@ fn getDisplay() -> Option<*Display> {
     }
 }
 
-fn getRootWindow(display: *Display) -> Window {
+fn getRootWindow(display: *mut Display) -> Window {
     unsafe {
         return XDefaultRootWindow(display);
     }
 }
 
-fn setSelectInput(display: *Display, window: Window) {
+fn setSelectInput(display: *mut Display, window: Window) {
     unsafe {
         let SubstructureNotifyMask = 1<<19;
         let SubstructureRedirectMask = 1<<20;
@@ -48,7 +48,7 @@ fn main() {
             unsafe {
 
                 let xeventSize = std::mem::size_of::<*XEvent>() as size_t;
-                let xevent = malloc(xeventSize) as *XEvent;
+                let xevent = malloc(xeventSize) as *mut XEvent;
                 println!("New event! {} with size {}", xevent, xeventSize);
 
                 XNextEvent(display, xevent);
