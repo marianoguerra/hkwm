@@ -3,6 +3,9 @@ hkwm
 
 this is not a window manager (no, really, it's not)
 
+Run
+---
+
 ::
 
     sudo apt-get install build-essential libx11-dev xserver-xephyr
@@ -12,4 +15,10 @@ this is not a window manager (no, really, it's not)
     DISPLAY=:33 ./hkwm
     DISPLAY=:33 ./xterm
 
-and watch it crash!
+Shortcuts
+---------
+
+Mod4 + k: close a window
+Mod4 + x: should be run command but I didn't decided how to implement it yet
+
+btw, Mod4 tends to be the "windows" key
