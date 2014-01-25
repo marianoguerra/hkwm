@@ -64,7 +64,8 @@ fn main() {
                     colormap: 0,
                     cursor: 0,
                 };
-                wa.cursor = xlib::XCreateFontCursor(display, 68 /*XC_left_ptr*/);
+                wa.cursor = xlib::XCreateFontCursor(display,
+                                                x::cursorfont::XC_left_ptr);
                 xlib::XChangeWindowAttributes(display, root,
                     x::CWCursor, &mut wa);
                 xlib::XGrabKey(display, 53, x::Mod4Mask, root, 1, x::GrabModeAsync,
