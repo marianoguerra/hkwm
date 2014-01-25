@@ -79,12 +79,19 @@ fn main() {
 
                     match eventType {
                         x::MapRequest => {
+                            let screen = xlib::XDefaultScreen(display);
+                            let width = xlib::XDisplayWidth(display, screen);
+                            let height = xlib::XDisplayHeight(display, screen);
+
+                            println!("Map request screen {} width {} height {}",
+                                screen, width, height);
+
                             let event = *xevent.xmaprequest();
                             xlib::XMapWindow(display, event.window);
                             xlib::XSetInputFocus(display, event.window,
                                 x::RevertToPointerRoot, x::CurrentTime);
                             xlib::XMoveResizeWindow(display, event.window, 0, 0,
-                                1920, 1080);
+                                width as u32, height as u32);
                         }
                         x::KeyRelease => {
                             let event = *xevent.xkey();
