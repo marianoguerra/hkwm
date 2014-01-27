@@ -1,4 +1,5 @@
 extern mod xlib;
+
 use std::ptr;
 use std::option::Option;
 use xlib::xlib;
@@ -12,7 +13,7 @@ fn getDisplay() -> Option<*mut Display> {
         let null = ptr::null();
         let display = XOpenDisplay(null);
 
-        if (ptr::is_null(display)) {
+        if ptr::is_null(display) {
             return None
         } else {
             return Some(display);
@@ -101,19 +102,19 @@ fn main() {
                         x::KeyRelease => {
                             let event = *xevent.xkey();
                             println!("Key {}", event.keycode);
-                            if (event.keycode == 45) { // k
+                            if event.keycode == 45 { // k
                                     let mut focus: Window = 0;
                                     let mut revert: i32 = 0;
                                     xlib::XGetInputFocus(display, &mut focus,
                                         &mut revert);
                                     xlib::XDestroyWindow(display, focus);
-                            } else if (event.keycode == 36) { // enter
+                            } else if event.keycode == 36 { // enter
                                 println!("running terminal")
                                 "gnome-terminal".with_c_str(|command| {
                                     std::libc::execvp(command,
                                         ptr::null());
                                 });
-                            } else if (event.keycode == 56) { // b
+                            } else if event.keycode == 56 { // b
                                 println!("running browser")
                                 "firefox".with_c_str(|command| {
                                     std::libc::execvp(command,
