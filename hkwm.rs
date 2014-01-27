@@ -72,6 +72,10 @@ fn main() {
                     x::GrabModeAsync);
                 xlib::XGrabKey(display, 45, x::Mod4Mask, root, 1, x::GrabModeAsync,
                     x::GrabModeAsync);
+                xlib::XGrabKey(display, 36, x::Mod4Mask, root, 1, x::GrabModeAsync,
+                    x::GrabModeAsync);
+                xlib::XGrabKey(display, 56, x::Mod4Mask, root, 1, x::GrabModeAsync,
+                    x::GrabModeAsync);
 
                 let mut xevent = Union__XEvent{ data: [0, ..24] };
                 loop {
@@ -97,12 +101,24 @@ fn main() {
                         x::KeyRelease => {
                             let event = *xevent.xkey();
                             println!("Key {}", event.keycode);
-                            if (event.keycode == 45) {
+                            if (event.keycode == 45) { // k
                                     let mut focus: Window = 0;
                                     let mut revert: i32 = 0;
                                     xlib::XGetInputFocus(display, &mut focus,
                                         &mut revert);
                                     xlib::XDestroyWindow(display, focus);
+                            } else if (event.keycode == 36) { // enter
+                                println!("running terminal")
+                                "gnome-terminal".with_c_str(|command| {
+                                    std::libc::execvp(command,
+                                        ptr::null());
+                                });
+                            } else if (event.keycode == 56) { // b
+                                println!("running browser")
+                                "firefox".with_c_str(|command| {
+                                    std::libc::execvp(command,
+                                        ptr::null());
+                                });
                             }
                         }
                         _ => {
