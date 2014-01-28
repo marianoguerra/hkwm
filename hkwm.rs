@@ -35,6 +35,14 @@ fn setSelectInput(display: *mut Display, window: Window) {
     }
 }
 
+fn runCommand(command: ~str) {
+    println!("running {}", command);
+    command.with_c_str(|c_command| unsafe {
+        std::libc::execvp(c_command,
+        ptr::null());
+    });
+}
+
 fn main() {
     let maybeDisplay = getDisplay();
 
@@ -109,17 +117,9 @@ fn main() {
                                         &mut revert);
                                     xlib::XDestroyWindow(display, focus);
                             } else if event.keycode == 36 { // enter
-                                println!("running terminal")
-                                "gnome-terminal".with_c_str(|command| {
-                                    std::libc::execvp(command,
-                                        ptr::null());
-                                });
+                                runCommand(~"gnome-terminal");
                             } else if event.keycode == 56 { // b
-                                println!("running browser")
-                                "firefox".with_c_str(|command| {
-                                    std::libc::execvp(command,
-                                        ptr::null());
-                                });
+                                runCommand(~"firefox");
                             }
                         }
                         _ => {
