@@ -3,6 +3,8 @@ hkwm
 
 this is not a window manager (no, really, it's not)
 
+.. image:: http://www.openbooktoronto.com/sites/default/files/obt/illustrations/I%20have%20no%20idea.jpg
+
 Run
 ---
 
