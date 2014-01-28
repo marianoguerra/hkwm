@@ -20,9 +20,9 @@ Run
 Shortcuts
 ---------
 
-Mod4 + k: close a window
-Mod4 + x: should be run command but I didn't decided how to implement it yet
-Mod4 + enter: runs gnome-terminal
-Mod4 + b: runs firefox
+ * Mod4 + k: close a window
+ * Mod4 + x: should be run command but I didn't decided how to implement it yet
+ * Mod4 + enter: runs gnome-terminal
+ * Mod4 + b: runs firefox
 
 btw, Mod4 tends to be the "windows" key
