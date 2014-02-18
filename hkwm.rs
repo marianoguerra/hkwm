@@ -1,6 +1,7 @@
-extern mod xlib;
+extern crate xlib;
 
 use std::ptr;
+use std::cast;
 use std::option::Option;
 use xlib::xlib;
 use xlib::{Display, XSelectInput, XOpenDisplay, Window, XDefaultRootWindow};
@@ -13,7 +14,7 @@ fn getDisplay() -> Option<*mut Display> {
         let null = ptr::null();
         let display = XOpenDisplay(null);
 
-        if ptr::is_null(display) {
+        if display.is_null() {
             return None
         } else {
             return Some(display);
@@ -88,7 +89,7 @@ fn main() {
 
                 let mut xevent = Union__XEvent{ data: [0, ..24] };
                 loop {
-                    XNextEvent(display, ptr::to_mut_unsafe_ptr(&mut xevent));
+                    XNextEvent(display, cast::transmute_mut_unsafe(&xevent));
                     let eventType = *xevent._type();
 
                     match eventType {
